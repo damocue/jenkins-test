@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    stages {
+        stage('Test') {
+            steps {
+                sh 'echo "Fail!"; exit 1'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'I run always :D'
+        }
+        success {
+            echo 'I only run if the BUILD is succesful'
+        }
+        failure {
+            echo 'I only run if the BUILD fails'
+        }
+        unstable {
+            echo 'I only run if I am set as unstable'
+        }
+        changed {
+            echo 'The pipeline was failing and it is correct, or vice versa'
+        }
+    }
+}
